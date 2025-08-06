@@ -1,5 +1,5 @@
 <?php
-// database/seeders/DatabaseSeeder.php
+
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
@@ -40,26 +40,26 @@ class DatabaseSeeder extends Seeder
             'email_verified_at' => now(),
         ]);
 
-        // Create Sample Armada
+        // Sample data armada
         $routes = [
-            ['Jakarta', 'Bandung', 150000],
-            ['Jakarta', 'Yogyakarta', 200000],
-            ['Bandung', 'Surabaya', 300000],
-            ['Jakarta', 'Semarang', 180000],
-            ['Bandung', 'Jakarta', 150000],
+            ['Jakarta', 'Bandung', 150000, '08:00:00'],
+            ['Jakarta', 'Yogyakarta', 200000, '09:00:00'],
+            ['Bandung', 'Surabaya', 300000, '07:30:00'],
+            ['Jakarta', 'Semarang', 180000, '10:15:00'],
+            ['Bandung', 'Jakarta', 150000, '06:45:00'],
         ];
 
         foreach ($routes as $index => $route) {
             Armada::create([
                 'no_unik' => 'BUS' . sprintf('%03d', $index + 1),
-                'id_rute' => $index + 1,
-                'nama_armada' => 'Armada ' . ($index + 1),
-                'kelas' => 'Ekonomi',
-                'harga' => $route[2],
-                'keterangan' => 'Armada ' . ($index + 1) . ' dari ' . $route[0] . ' ke ' . $route[1],
-                'status' => 'available',
-                'jadwal_keberangkatan' => now()->addDays($index)->format('Y-m-d H:i:s'),
-                'jadwal_kedatangan' => now()->addDays($index + 1)->format('Y-m-d H:i:s'),
+                'id_admin' => $admin->id,
+                'supir' => 'Supir ' . ($index + 1),
+                'jumlah_kursi' => 40,
+                'no_kendaraan' => 'D' . rand(1000, 9999) . 'AB',
+                'rute_asal' => $route[0],
+                'rute_tujuan' => $route[1],
+                'harga_tiket' => $route[2],
+                'jam_berangkat' => $route[3],
             ]);
         }
     }
