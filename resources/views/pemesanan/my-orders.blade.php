@@ -26,12 +26,15 @@
                                         <p class="font-bold text-blue-600">Rp {{ number_format($order->total_harga) }}</p>
                                     </div>
                                     <div class="flex items-center justify-between">
-                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
-                                            @if($order->status_pembayaran == 'paid') bg-green-100 text-green-800
-                                            @elseif($order->status_pembayaran == 'pending') bg-yellow-100 text-yellow-800
-                                            @else bg-red-100 text-red-800 @endif">
+                                        <span @class([
+                                            'px-2 inline-flex text-xs leading-5 font-semibold rounded-full',
+                                            'bg-green-100 text-green-800' => $order->status_pembayaran === 'paid',
+                                            'bg-yellow-100 text-yellow-800' => $order->status_pembayaran === 'pending',
+                                            'bg-red-100 text-red-800' => !in_array($order->status_pembayaran, ['paid', 'pending']),
+                                        ])>
                                             {{ ucfirst($order->status_pembayaran) }}
                                         </span>
+
                                         <a href="{{ route('pemesanan.show', $order->id) }}" 
                                            class="text-blue-600 hover:text-blue-900 text-sm font-medium">
                                             Detail
